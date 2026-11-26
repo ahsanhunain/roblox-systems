@@ -12,23 +12,23 @@ HatchConfig.MaxLuck = 100
 HatchConfig.LuckyHatchEvery = 10
 HatchConfig.LuckyHatchBonus = 10
 
--- Lowest to highest. Rank in this list decides pity and "better than".
+-- Worst to best. Order matters, pity uses it
 HatchConfig.Rarities = { "Common", "Rare", "Epic", "Legendary" }
 
--- Odds in percent at a given luck. Luck between two anchors blends them.
+-- Odds (%) at each luck value. Anything in between gets blended
 HatchConfig.LuckAnchors = {
 	{ luck = 0, odds = { Common = 70, Rare = 22, Epic = 7, Legendary = 1 } },
 	{ luck = 50, odds = { Common = 40, Rare = 35, Epic = 20, Legendary = 5 } },
 	{ luck = 100, odds = { Common = 10, Rare = 40, Epic = 35, Legendary = 15 } },
 }
 
--- Highest rarity first. After this many hatches without one, the next hatch is at least that rarity.
+-- Best first! Guaranteed after this many hatches without one
 HatchConfig.Pity = {
 	{ rarity = "Legendary", hatches = 100 },
 	{ rarity = "Epic", hatches = 25 },
 }
 
--- Example eggs. Pet ids are whatever the game uses to find its pet models.
+-- Example eggs, swap the ids for your own pets
 HatchConfig.Eggs = {
 	Basic = {
 		price = 100,

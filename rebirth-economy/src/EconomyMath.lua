@@ -1,7 +1,9 @@
--- Pure price math. No Roblox services, so checks/economy_math_check.luau can run it in Lune.
+-- EconomyMath
+-- Price math, shared by server and client
 
 local EconomyMath = {}
 
+-- false for NaN, inf, negatives and strings
 function EconomyMath.isAmount(value)
 	return type(value) == "number" and value == value and value >= 0 and value < math.huge
 end
@@ -28,6 +30,7 @@ end
 
 function EconomyMath.multiplier(config, rebirths, levels)
 	local mult = 1 + config.MultiplierPerRebirth * (rebirths or 0)
+
 	for name, upgrade in pairs(config.Upgrades) do
 		if upgrade.effect == "multiplier" then
 			mult += upgrade.perLevel * ((levels and levels[name]) or 0)

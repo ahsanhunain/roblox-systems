@@ -15,6 +15,7 @@ local function invoke(action, ...)
 	return ok and result
 end
 
+
 function EconomyClient.Rebirth(amount)
 	return invoke("Rebirth", amount)
 end
@@ -27,14 +28,16 @@ function EconomyClient.Sell(ids)
 	return invoke("Sell", ids)
 end
 
--- For UI only. The server works the real price out again.
+-- Only for showing in the UI. Server works the price out again itself
 function EconomyClient.RebirthCost(amount)
-	return EconomyMath.rebirthCost(EconomyConfig, player:GetAttribute(EconomyConfig.Attributes.Rebirths) or 0, amount)
+	local done = player:GetAttribute(EconomyConfig.Attributes.Rebirths) or 0
+	return EconomyMath.rebirthCost(EconomyConfig, done, amount)
 end
 
 function EconomyClient.Get(attribute)
 	return player:GetAttribute(EconomyConfig.Attributes[attribute])
 end
+
 
 function EconomyClient.Start()
 	for action, remoteName in pairs(EconomyConfig.Remotes) do

@@ -8,17 +8,23 @@ local player = Players.LocalPlayer
 local RagdollClient = {}
 
 function RagdollClient.Start()
-	ReplicatedStorage:WaitForChild(RagdollConfig.RemoteName).OnClientEvent:Connect(function(on, push)
+	local remote = ReplicatedStorage:WaitForChild(RagdollConfig.RemoteName)
+
+	remote.OnClientEvent:Connect(function(on, push)
 		local character = player.Character
 		local humanoid = character and character:FindFirstChildOfClass("Humanoid")
 		if not humanoid then
 			return
 		end
+
 		for _, state in ipairs(RagdollConfig.BlockedStates) do
 			humanoid:SetStateEnabled(state, not on)
 		end
+
 		if on then
 			humanoid:ChangeState(Enum.HumanoidStateType.Physics)
+
+			-- Push every part. If you only push the root the limbs drag it to a stop
 			for _, part in ipairs(push and character:GetChildren() or {}) do
 				if part:IsA("BasePart") then
 					part.AssemblyLinearVelocity = push
